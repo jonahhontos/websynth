@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
 
 // ---- Schema ---- //
 var userSchema = new mongoose.Schema({
-  name: {type:String, required:true},
+  name: {type:String, required:true, unique:true},
   password: {type:String, required:true},
   patches: [{type: mongoose.Schema.Types.ObjectId, ref:'Patch'}]
 })
@@ -22,6 +22,6 @@ userSchema.methods.validPassword = function(password){
 
 
 // ---- Export Module ---- //
-var User = new mongoose.model('User', userSchema)
+var User = mongoose.model('User', userSchema)
 
 module.exports = User

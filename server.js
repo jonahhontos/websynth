@@ -2,7 +2,8 @@
 var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
-    mongoose = require('mongoose')
+    mongoose = require('mongoose'),
+    userRoutes = require('./routes/users.js')
 
 
 // ---- DB Connection ---- //
@@ -20,6 +21,7 @@ app.use(express.static(__dirname + '/public'))
 app.get('/', function(req,res){
   res.sendFile('index.html')
 })
+app.use('/users',userRoutes)
 
 
 // ---- Run Server ---- //
