@@ -37,6 +37,7 @@ var lfoSchema = new Schema({
 // - patch - //
 var patchSchema = new Schema({
   user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+  name: String,
   vcos: [vcoSchema],
   ampAdsr: adsrSchema,
   filter: filterSchema,

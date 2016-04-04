@@ -17,6 +17,9 @@ userRouter.get('/:id', userCtrl.show)
 // - index of users - //
 userRouter.get('/', userCtrl.index)
 
+// - add a patch - //
+userRouter.post(':id/patches', userCtrl.createPatch)
+
 
 // ---- Export Module ---- //
 module.exports = userRouter

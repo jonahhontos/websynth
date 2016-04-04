@@ -1,4 +1,5 @@
 var User = require('../models/User.js'),
+    Patch = require('../models/Patch.js')
     jwt = require('jsonwebtoken')
 
 // ---- Export User Actions ---- //
@@ -39,6 +40,22 @@ module.exports = {
       } else {
         res.json({success:false, message:"password is incorrect"})
       }
+    })
+  },
+  // - add a new patch - //
+  createPatch: function(req,res){
+    var newPatch = new Patch()
+    User.findById(req.params.id, function(err, user){
+      if (err) return res.json({success:false, error: err})
+      newPatch.user = user
+      newPatch.save(function(err, patch){
+        if (err) return res.json({success:false, error: err})
+        user.patches.push(patch)
+        user.save(function(err,user){
+          if (err) return res.json({success:false, error: err})
+          res.json({success:true, patch: patch})
+        })
+      })
     })
   }
 }
