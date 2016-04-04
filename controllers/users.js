@@ -57,5 +57,12 @@ module.exports = {
         })
       })
     })
+  },
+  // - modify a patch - //
+  updatePatch: function(req,res){
+    Patch.findOneAndUpdate({_id:req.params.p_id}, req.body, {new:true}, function(err, patch){
+      if (err) return res.json({success:false, error: err})
+      res.json({success:true, patch: patch})
+    })
   }
 }
