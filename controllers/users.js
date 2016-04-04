@@ -1,4 +1,5 @@
-var User = require('../models/User.js')
+var User = require('../models/User.js'),
+    jwt = require('jsonwebtoken')
 
 // ---- Export User Actions ---- //
 module.exports = {
@@ -31,7 +32,10 @@ module.exports = {
     User.findOne({name: req.body.name}, function(err,user){
       if (err) return res.json({success: false, error: err})
       if (user.validPassword(req.body.password)){
-        res.json({success:true, message:"password is correct"})
+        var token = jwt.sign(user,'secret',{
+          expiresInMinutes: 1440
+        })
+        res.json({success:true,message:'login successful',token:token})
       } else {
         res.json({success:false, message:"password is incorrect"})
       }
