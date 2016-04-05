@@ -2,9 +2,9 @@
   angular.module('webSynth')
     .controller('LoginController', loginCtrl)
 
-  loginCtrl.$inject = ['userService','authService']
+  loginCtrl.$inject = ['userService','authService','$state']
 
-  function loginCtrl(userService, authService){
+  function loginCtrl(userService, authService,$state){
     var vm = this
 
     function handleRequest(res){
@@ -19,6 +19,10 @@
     vm.login = function(){
       userService.login(vm.username,vm.password)
         .then(handleRequest,handleRequest)
+    }
+
+    if (authService.currentUser()){
+      $state.go('edit')
     }
   }
 })()

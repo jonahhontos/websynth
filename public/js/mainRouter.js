@@ -14,8 +14,12 @@
     })
     .state('edit',{
        url: '/edit/:id',
-       templateUrl: '/partials/people.html',
+       templateUrl: '/partials/edit.html',
        controller: 'EditController as ec'
+    })
+    .state('profile',{
+      url: '/user/:id',
+      templateUrl: 'partials/'
     })
   }
 })()
