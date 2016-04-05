@@ -1,0 +1,7 @@
+<h3 class="heading center light">{{pc.user.name}}</h3>
+<h5 class="heading center light">Patches</h5>
+<div ng-repeat="patch in pc.user.patches" class="center">
+  <h5>{{patch.name}}</h5>
+  <span ng-if="pc.isUser"><a ui-sref="edit({id: patch._id})">Edit</a></span>
+</div>
+<div class="center"><a href="#" ng-click="pc.newPatch()">New Patch</div>

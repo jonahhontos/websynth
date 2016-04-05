@@ -1,11 +1,16 @@
+// ---- Module Setup ---- //
 (function(){
   angular.module('webSynth')
     .controller('LoginController', loginCtrl)
 
   loginCtrl.$inject = ['userService','authService','$state']
 
-  function loginCtrl(userService, authService,$state){
+
+// ---- Controller Constructor ---- //
+  function loginCtrl(userService, authService, $state){
     var vm = this
+
+    var user = authService.currentUser()
 
     function handleRequest(res){
       var token = res.data ? res.data.token : null
@@ -20,9 +25,9 @@
       userService.login(vm.username,vm.password)
         .then(handleRequest,handleRequest)
     }
-
-    if (authService.currentUser()){
-      $state.go('edit')
+    console.log(user);
+    if (user){
+      $state.go('profile', {id: user.id})
     }
   }
 })()

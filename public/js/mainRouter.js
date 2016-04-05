@@ -19,7 +19,8 @@
     })
     .state('profile',{
       url: '/user/:id',
-      templateUrl: 'partials/'
+      templateUrl: '/partials/profile.html',
+      controller: 'ProfileController as pc'
     })
   }
 })()

@@ -23,10 +23,12 @@ module.exports = {
   },
   // - return a specific user - //
   show: function(req,res){
-    User.find({_id: req.params.id}, function(err, user){
-      if (err) return res.json({success: false, error: err})
-      res.json({success:true, user:user})
-    })
+    User.findById(req.params.id)
+        .populate('patches')
+        .exec(function(err, user){
+          if (err) return res.json({success: false, error: err})
+          res.json({success:true, user:user})
+        })
   },
   // - log an existing user in - //
   login: function(req,res){

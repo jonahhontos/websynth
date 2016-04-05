@@ -14,5 +14,10 @@
         password: password
       })
     }
+
+    // - get data for a user - //
+    self.getUser = function(id){
+      return $http.get('/users/'+id)
+    }
   }
 })()
