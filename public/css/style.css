@@ -1,3 +1,19 @@
 .container {
   padding: 15px;
 }
+
+.vco {
+  margin: 10px 0;
+}
+
+body {
+  text-align: center;
+}
+
+input[type="range"]{
+  width:100%;
+}
+
+.padded {
+  padding: 15px;
+}

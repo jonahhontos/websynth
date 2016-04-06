@@ -23,6 +23,9 @@ userRouter.post('/:id/patches', userCtrl.createPatch)
 // - update a patch - //
 userRouter.patch('/:u_id/patches/:p_id', userCtrl.updatePatch)
 
+// - get patch data - //
+userRouter.get('/:u_id/patches/:p_id', userCtrl.showPatch)
+
 
 // ---- Export Module ---- //
 module.exports = userRouter

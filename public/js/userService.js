@@ -19,5 +19,17 @@
     self.getUser = function(id){
       return $http.get('/users/'+id)
     }
+
+    // - get data for a patch - //
+    self.getPatch = function(u_id,p_id){
+      return $http.get('/users/'+u_id+'/patches/'+p_id)
+    }
+
+    // - create a patch - //
+    self.createPatch = function(id,name){
+      return $http.post('/users/'+id+'/patches', {
+        name: name
+      })
+    }
   }
 })()

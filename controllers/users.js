@@ -1,5 +1,5 @@
 var User = require('../models/User.js'),
-    Patch = require('../models/Patch.js')
+    Patch = require('../models/Patch.js'),
     jwt = require('jsonwebtoken')
 
 // ---- Export User Actions ---- //
@@ -46,7 +46,7 @@ module.exports = {
   },
   // - add a new patch - //
   createPatch: function(req,res){
-    var newPatch = new Patch()
+    var newPatch = blankPatch(req.body.name)
     User.findById(req.params.id, function(err, user){
       if (err) return res.json({success:false, error: err})
       newPatch.user = user
@@ -60,6 +60,15 @@ module.exports = {
       })
     })
   },
+  // - get patch data - //
+  showPatch: function(req,res){
+    Patch.findById(req.params.p_id)
+         .populate('user')
+         .exec(function(err,patch){
+           if (err) return res.json({success:false, error: err})
+           res.json({success:true, patch:patch})
+         })
+  },
   // - modify a patch - //
   updatePatch: function(req,res){
     Patch.findOneAndUpdate({_id:req.params.p_id}, req.body, {new:true}, function(err, patch){
@@ -67,4 +76,59 @@ module.exports = {
       res.json({success:true, patch: patch})
     })
   }
+}
+
+
+// ---- Generate a New Default Patch ---- //
+function blankPatch(name){
+  // -- set vars with defaults -- //
+  // - vcos - //
+  var vcos = [{
+      oType: 'sine',
+      detune: 0,
+      gain: 0.5
+    },
+    {
+      oType: 'sine',
+      detune: -8,
+      gain: 0
+    },
+    {
+      oType: 'sine',
+      detune: 8,
+      gain: 0
+    }]
+
+  // - envelope - //
+  var adsr = {
+    attack: 0,
+    decay: 0,
+    sustain: 1,
+    release: 0
+  }
+
+  // - filter - //
+  var filter = {
+    fType: 'lowpass',
+    resonance: 0,
+    cutoff: 20000
+  }
+
+  // - lfos - //
+  var lfo = {
+    parameter: null,
+    amount: 0.1,
+    frequency: 1
+  }
+
+
+  // -- return a new patch object -- //
+  return new Patch({
+    name: name,
+    vcos: vcos,
+    ampAdsr: adsr,
+    filter: filter,
+    filterAdsr: adsr,
+    lfos: [lfo,lfo,lfo]
+  })
 }

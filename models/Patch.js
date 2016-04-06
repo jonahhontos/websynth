@@ -4,33 +4,33 @@ var mongoose = require('mongoose'),
 
 // ---- Schemas ---- //
 // - vcos - //
-var vcoSchema = new Schema({
-  type: String,
+var vco = {
+  oType: String,
   detune: Number,
   gain: Number
-})
+}
 
 // - envelope - //
-var adsrSchema = new Schema({
+var adsr = {
   attack: Number,
   decay: Number,
   sustain: Number,
   release: Number
-})
+}
 
 // - filter - //
-var filterSchema = new Schema({
-  type: String,
+var filter = {
+  fType: String,
   resonance: Number,
   cutoff: Number
-})
+}
 
 // - lfos - //
-var lfoSchema = new Schema({
+var lfo = {
   parameter: String,
   amount: Number,
   frequency: Number
-})
+}
 
 // - effects go here - //
 
@@ -38,11 +38,11 @@ var lfoSchema = new Schema({
 var patchSchema = new Schema({
   user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   name: String,
-  vcos: [vcoSchema],
-  ampAdsr: adsrSchema,
-  filter: filterSchema,
-  filterAdsr: adsrSchema,
-  lfos: [lfoSchema]
+  vcos: [vco,vco,vco],
+  ampAdsr: adsr,
+  filter: filter,
+  filterAdsr: adsr,
+  lfos: [lfo,lfo,lfo]
 })
 
 
