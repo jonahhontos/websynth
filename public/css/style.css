@@ -11,9 +11,31 @@ body {
 }
 
 input[type="range"]{
-  width:100%;
+
 }
 
+input[type=range] {
+    /*removes default webkit styles*/
+    -webkit-appearance: none;
+    /*border-left: 2px outset #444;*/
+    width:100%;
+}
+input[type=range]::-webkit-slider-runnable-track {
+    width: 300px;
+    height: 5px;
+    background: #444;
+    border: 2px inset #666;
+    border-radius: 0;
+}
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: 2px outset #07a;
+    height: 16px;
+    width: 8px;
+    border-radius: 0;
+    background: #069;
+    margin-top: -6px;
+}
 .padded {
   padding: 15px;
 }
