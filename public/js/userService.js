@@ -31,5 +31,10 @@
         name: name
       })
     }
+
+    // - save a patch - //
+    self.updatePatch = function(u_id,p_id,patch){
+      return $http.patch('/users/'+u_id+'/patches/'+p_id, patch)
+    }
   }
 })()

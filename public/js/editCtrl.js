@@ -23,6 +23,14 @@
     vm.logPatch = function(){
       console.log(vm.patch)
     }
+
+    // - save the patch - //
+    vm.savePatch = function(){
+      userService.updatePatch(vm.user._id,vm.patch._id,vm.patch)
+        .then(function(result){
+          console.log(result);
+        })
     }
+  }
 
 })()
