@@ -53,7 +53,7 @@
                  startNote: 'A3',
                  whiteNotesColour: 'white',
                  blackNotesColour: 'black',
-                 hoverColour: '#f3e939'
+                 activeColour: '#069'
             })
 
     // - initialize oscillators - //
@@ -86,13 +86,16 @@
     vca.connect(ctx.destination)
 
 
-    // -- set listeners for qwerty hancock -- //
+
+  // -- set listeners for qwerty hancock -- //
     // - keydown event - //
     keyboard.keyDown = function(note,frequency){
+      var gain = 0.1
       for (var i=0; i<vcos.length; i++){
         vcos[i].setFrequency(frequency,0)
       }
-      vca.setGain(0.1,vm.patch.ampAdsr.attack)
+      vca.setGain(gain, vm.patch.ampAdsr.attack)
+      // vca.setGain(gain * vm.patch.ampAdsr.sustain, vm.patch.ampAdsr.decay + vm.patch.ampAdsr.attack)
     }
     // - keyup event - //
     keyboard.keyUp = function(note,frequency){
