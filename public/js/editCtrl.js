@@ -164,6 +164,10 @@ function VCA(ctx){
     self.amp.gain.setTargetAtTime(gain,0,time)
   }
 
+  self.rampGain = function(gain,time){
+    self.amp.gain.linearRampToValueAtTime(gain, time)
+  }
+
   self.connect = function(i){
     self.amp.connect(i)
   }
