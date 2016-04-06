@@ -22,6 +22,7 @@
       .then(function(result){
         vm.patch = result.data.patch
         vm.syncVcos()
+        startVcos()
       })
 
     // - log current patch object to console - //
@@ -44,7 +45,7 @@
     var ctx = new $window.AudioContext()
 
     // - initialize qwerty hancock - //
-    vm.keyboard = new QwertyHancock({
+    var keyboard = new QwertyHancock({
                  id: 'keyboard',
                  width: 350,
                  height: 75,
@@ -57,24 +58,45 @@
 
     // - initialize oscillators - //
     var vcos = [new VCO(ctx),new VCO(ctx),new VCO(ctx)]
+    function startVcos(){
+      for (var i = 0; i<vcos.length; i++){
+        vcos[i].start()
+      }
+    }
 
     // - sync playback vco settings to patch settings - //
     vm.syncVcos = function(){
       for (var i = 0; i<vcos.length; i++){
         vcos[i].setType(vm.patch.vcos[i].oType)
+        vcos[i].setDetune(vm.patch.vcos[i].detune)
       }
     }
 
     // - initialize amplifier - //
     var vca = new VCA(ctx)
+    vca.setGain(0,0)
 
-    // - connect vcos to amplifier - //
+    // - connect oscillators to amplifier - //
     for (var i = 0; i<vcos.length; i++){
       vcos[i].connect(vca.amp)
     }
 
     // - connect amplifier to destination - //
     vca.connect(ctx.destination)
+
+
+    // -- set listeners for qwerty hancock -- //
+    // - keydown event - //
+    keyboard.keyDown = function(note,frequency){
+      for (var i=0; i<vcos.length; i++){
+        vcos[i].setFrequency(frequency,0)
+      }
+      vca.setGain(0.1,vm.patch.ampAdsr.attack)
+    }
+    // - keyup event - //
+    keyboard.keyUp = function(note,frequency){
+      vca.setGain(0,vm.patch.ampAdsr.release)
+    }
   }
 
 
@@ -86,6 +108,8 @@ function VCO(ctx){
 
   self.osc = ctx.createOscillator()
 
+  self.amp = ctx.createGain()
+
   self.setType = function(type){
     if(type) {
         self.osc.type = type
@@ -96,7 +120,16 @@ function VCO(ctx){
     self.osc.frequency.setTargetAtTime(freq, 0, time)
   }
 
+  self.setDetune = function(amount){
+    self.osc.detune.value = amount
+  }
+
+  self.setGain = function(gain){
+
+  }
+
   self.start = function(pos){
+    pos = pos ? pos : 0
     self.osc.start(pos)
   }
 
