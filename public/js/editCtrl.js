@@ -175,4 +175,29 @@ function VCA(ctx){
   return self
 }
 
+// - filter constructor - //
+function Filter(ctx){
+  var self = this
+
+  self.filter = ctx.createBiQuadFilter()
+
+  self.setType = function(type){
+    self.filter.type = type
+  }
+
+  self.setCutoff = function(cutoff){
+    self.filter.frequency.value = cutoff
+  }
+
+  self.setResonance = function(resonance){
+    self.filter.Q.value = resonance
+  }
+
+  self.connect = function(i){
+    self.filter.connect(i)
+  }
+
+  return self
+}
+
 })()
