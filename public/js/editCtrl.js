@@ -77,10 +77,23 @@
     var vca = new VCA(ctx)
     vca.setGain(0,0)
 
-    // - connect oscillators to amplifier - //
+    // - initialize filter - //
+    var filter = new Filter(ctx)
+
+    // - connect oscillators to filter - //
     for (var i = 0; i<vcos.length; i++){
-      vcos[i].connect(vca.amp)
+      vcos[i].connect(filter.filter)
     }
+
+    // - sync filter playback settings to patch - //
+    function syncFilter(){
+      filter.setType(vm.patch.filter.fType)
+      filter.setCutoff(vm.patch.filter.cutoff)
+      filter.setResonance(vm.patch.filter.resonance)
+    }
+
+    // - connect filter to amp - //
+    filter.connect(vca.gain)
 
     // - connect amplifier to destination - //
     vca.connect(ctx.destination)
