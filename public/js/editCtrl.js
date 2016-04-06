@@ -69,6 +69,7 @@
       for (var i = 0; i<vcos.length; i++){
         vcos[i].setType(vm.patch.vcos[i].oType)
         vcos[i].setDetune(vm.patch.vcos[i].detune)
+        vcos[i].setGain(vm.patch.vcos[i].gain)
       }
     }
 
@@ -125,7 +126,7 @@ function VCO(ctx){
   }
 
   self.setGain = function(gain){
-
+    self.amp.gain.value = gain
   }
 
   self.start = function(pos){
@@ -138,12 +139,14 @@ function VCO(ctx){
   }
 
   self.connect = function(i) {
-    self.osc.connect(i);
+    self.amp.connect(i);
   }
 
   self.cancel = function() {
     self.osc.frequency.cancelScheduledValues(0);
   }
+
+  self.osc.connect(self.amp)
 
   return self
 }
