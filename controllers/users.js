@@ -78,9 +78,15 @@ module.exports = {
   },
   // - delete a patch - //
   deletePatch: function(req,res){
-    Patch.findOneAndRemove({_id:req.params.p_id}, function(err){
+    User.findById(req.params.u_id, function(err, user){
       if (err) return res.json({success:false, error: err})
-      res.json({success:true})
+      user.patches.splice(user.patches.indexOf(req.params.p_id),1)
+      user.save(function(err){
+        Patch.findOneAndRemove({_id:req.params.p_id}, function(err){
+          if (err) return res.json({success:false, error: err})
+          res.json({success:true, user: user})
+        })
+      })
     })
   }
 }

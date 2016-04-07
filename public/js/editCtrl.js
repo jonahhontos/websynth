@@ -3,12 +3,12 @@
   angular.module('webSynth')
   .controller('EditController', editCtrl)
 
-  editCtrl.$inject = ['authService', 'userService', '$stateParams', '$window']
+  editCtrl.$inject = ['authService', 'userService', '$stateParams', '$window', '$state']
 
 
 
 // ---- Controller Constructor ---- //
-  function editCtrl(authService, userService, $stateParams, $window){
+  function editCtrl(authService, userService, $stateParams, $window, $state){
     var vm = this
 
 
@@ -37,6 +37,12 @@
         .then(function(result){
           console.log(result);
         })
+    }
+
+    // - save and go back - //
+    vm.goBack = function(){
+      vm.savePatch()
+      $state.go("profile",{id: vm.user.id})
     }
 
 

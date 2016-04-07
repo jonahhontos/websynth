@@ -27,7 +27,7 @@ userRouter.post('/:id/patches', userCtrl.createPatch)
 userRouter.patch('/:u_id/patches/:p_id', userCtrl.updatePatch)
 
 // - delete a patch - //
-userRouter.delete('/patches/:id', userCtrl.deletePatch)
+userRouter.delete('/:u_id/patches/:p_id', userCtrl.deletePatch)
 
 
 
