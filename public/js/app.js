@@ -5,6 +5,8 @@
     })
     .config(function($mdThemingProvider){
       $mdThemingProvider.theme('default')
-      .dark()
+        .dark()
+        .primaryPalette('blue-grey')
+        .accentPalette('cyan')
     })
 })()
