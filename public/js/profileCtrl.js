@@ -34,7 +34,9 @@
 
     // - copy other user's patch to collection - //
     vm.copyToProfile = function(patch){
-      console.log(patch)
+      userService.copyPatch(user.id,patch).then(function(result){
+        $state.go('profile',{id:user.id})
+      })
     }
 
     // - toggle creating a new patch - //

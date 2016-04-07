@@ -16,7 +16,7 @@
         <a ui-sref="edit({id: patch._id})">Edit</a>
         <a href="#" ng-click="pc.deletePatch(patch)">Delete</a>
       </span>
-      <a href="#" ng-if="!pc.isUser" ng-click="pc.copyToProfile(patch)">Duplicate to Collection</a>
+      <a ng-if="!pc.isUser" ng-click="pc.copyToProfile(patch)">Duplicate to Collection</a>
     </div>
   </div>
 </div>

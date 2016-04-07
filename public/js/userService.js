@@ -34,9 +34,12 @@
 
     // - create a patch - //
     self.createPatch = function(id,name){
-      return $http.post('/users/'+id+'/patches', {
-        name: name
-      })
+      return $http.post('/users/'+id+'/patches', { name: name })
+    }
+
+    // - copy a patch - //
+    self.copyPatch = function(id,patch){
+      return $http.post('/users/'+id+'/patches/copy', { patch: patch })
     }
 
     // - save a patch - //

@@ -23,6 +23,9 @@ userRouter.get('/', userCtrl.index)
 // - add a patch - //
 userRouter.post('/:id/patches', userCtrl.createPatch)
 
+// - copy a patch - //
+userRouter.post('/:id/patches/copy', userCtrl.copyPatch)
+
 // - update a patch - //
 userRouter.patch('/:u_id/patches/:p_id', userCtrl.updatePatch)
 

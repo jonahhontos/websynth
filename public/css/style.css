@@ -19,6 +19,7 @@ body {
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
+  min-height: 100%;
 }
 
 input[type="range"]{
