@@ -21,6 +21,11 @@
         vm.isUser = (vm.user._id == user.id)
       })
 
+    // - log out user - //
+    vm.logout = function(){
+      authService.logout()
+    }
+
     vm.newPatch = function(){
       // toggle new patch inputs
     }

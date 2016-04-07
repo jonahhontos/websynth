@@ -1,8 +1,14 @@
-<form ng-submit="lc.login()">
-  <h1 class="inset-header">Log In</h1>
-  <md-input-container>
-    <input type="text" placeholder="Username" ng-model="lc.username"><br>
-    <input type="password" placeholder="Password" ng-model="lc.password"><br>
-  </md-input-container>
-  <md-button type="submit" class="btn blue-grey lighten-1">Login</md-button>
-</form>
+<div layout="row" layout-align="center center">
+  <div class="controls" flex="50">
+    <form ng-submit="lc.login()">
+      <h1 class="inset-header">Log In</h1><br>
+      <md-input-container>
+        <input type="text" placeholder="Username" ng-model="lc.username"><br>
+      </md-input-container><br>
+      <md-input-container>
+        <input type="password" placeholder="Password" ng-model="lc.password"><br>
+      </md-input-container><br>
+      <md-button class="md-raised" type="submit" class="btn blue-grey lighten-1">Login</md-button>
+    </form>
+  </div>
+</div>
