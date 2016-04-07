@@ -2,13 +2,17 @@
 <div layout="row">
 <!-- Patch Title -->
   <div flex="33">
-    <h3>{{ec.patch.name}}</h3>
+    <h3 class="inset-header">{{ec.patch.name}}</h3>
   </div>
 <!-- / Patch Title -->
 
 <!-- Qwerty Hancock -->
-  <div flex="66" id="keyboard"></div>
+  <div flex="33" id="keyboard"></div>
 <!-- / Qwerty Hancock -->
+
+  <div flex="33">
+    <md-button class="md-raised" ng-click="ec.savePatch()">Save patch</md-button>
+  </div>
 </div>
 <!-- / Header -->
 
@@ -56,7 +60,10 @@
     <input type="range" min="0" max="1" step="0.001" ng-model="ec.patch.ampAdsr.sustain"><br> -->
     Release:<br>
     <input type="range" min="0" max="1" step="0.001" ng-model="ec.patch.ampAdsr.release">
+<!-- / Amplifier Envelope Settings -->
 
+
+<!-- Filter Settings -->
     <h3>Filter</h3>
     Cutoff:<br>
     <input type="range" min="0" max="20000" ng-model="ec.patch.filter.cutoff" ng-change="ec.syncFilter()">
@@ -73,7 +80,10 @@
         Bandpass
       </md-option><br/>
     </md-select>
+<!-- Filter Settings -->
 
+
+<!-- Filter Envelope Settings -->
     <h3>Filter Envelope</h3>
     Attack:<br>
     <input type="range" min="0" max="1" step="0.001" style="width:100%" ng-model="ec.patch.filterAdsr.attack"><br>
@@ -84,32 +94,6 @@
     Release:<br>
     <input type="range" min="0" max="1" step="0.001" ng-model="ec.patch.filterAdsr.release">
   </div>
-<!-- / Amplifier Envelope Settings -->
-
-
-
-</div>
-<!-- / First Row -->
-
-<!-- Second Row -->
-<div layout="row">
-
-
-<!-- Filter Settings -->
-  <div flex="50" class="padded">
-
-  </div>
-<!-- Filter Settings -->
-
-
-<!-- Filter Envelope Settings -->
-  <div flex="50" class="padded">
-
-  </div>
 <!-- / Filter Envelope Settings -->
-
 </div>
-<!-- / Second Row -->
-
-<md-button class="md-raised" ng-click="ec.logPatch()">Log patch settings</md-button>
-<md-button class="md-raised" ng-click="ec.savePatch()">Save patch</md-button>
+<!-- / Row -->
