@@ -19,6 +19,7 @@
         vm.user = result.data.user
         // - store whether current user matches profile user - //
         vm.isUser = (vm.user._id == user.id)
+        vm.patches = vm.user.patches
       })
 
     // - log out user - //
@@ -27,11 +28,15 @@
     }
 
     vm.newPatch = function(){
-      // toggle new patch inputs
+      vm.creating = true
+      vm.newPatchName = ""
     }
 
     vm.createPatch = function(){
-      // create a new patch in db and redirect to edit
+      userService.createPatch(user.id,vm.newPatchName).then(function(result){
+        vm.patches.push(result.data.patch)
+      })
+      vm.creating = false
     }
   }
 })()

@@ -11,6 +11,9 @@ userRouter.post('/', userCtrl.create)
 // - login - //
 userRouter.post('/login', userCtrl.login)
 
+// - get patch data - //
+userRouter.get('/:u_id/patches/:p_id', userCtrl.showPatch)
+
 // - show user - //
 userRouter.get('/:id', userCtrl.show)
 
@@ -23,8 +26,9 @@ userRouter.post('/:id/patches', userCtrl.createPatch)
 // - update a patch - //
 userRouter.patch('/:u_id/patches/:p_id', userCtrl.updatePatch)
 
-// - get patch data - //
-userRouter.get('/:u_id/patches/:p_id', userCtrl.showPatch)
+// - delete a patch - //
+userRouter.delete('/patches/:id', userCtrl.deletePatch)
+
 
 
 // ---- Export Module ---- //

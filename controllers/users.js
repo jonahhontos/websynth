@@ -75,6 +75,13 @@ module.exports = {
       if (err) return res.json({success:false, error: err})
       res.json({success:true, patch: patch})
     })
+  },
+  // - delete a patch - //
+  deletePatch: function(req,res){
+    Patch.findOneAndRemove({_id:req.params.p_id}, function(err){
+      if (err) return res.json({success:false, error: err})
+      res.json({success:true})
+    })
   }
 }
 

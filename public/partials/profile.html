@@ -1,9 +1,16 @@
 <h1 class="inset-header">{{pc.user.name}}'s Patches</h1><br>
-<a href="#" ng-click="pc.logout()">Log Out</a><br>
-<md-button class="md-raised" ng-click="pc.newPatch()">New Patch</md-button>
+<a href="#" ng-click="pc.logout()" ng-if="pc.isUser">Log Out</a><br>
+<md-button class="md-raised" ng-click="pc.newPatch()" ng-if="pc.isUser">New Patch</md-button>  <br>
+<div ng-if="pc.creating" class="inset-header">
+
+  <md-input-container>
+    <input type="text" ng-model="pc.newPatchName" placeholder="Enter Patch Name">
+  </md-input-container><br>
+  <md-button class="md-raised" ng-click="pc.createPatch()">Create</md-button>
+</div>
 <div layout="row" layout-align="center center">
   <div flex="60">
-    <div ng-repeat="patch in pc.user.patches" class="controls">
+    <div ng-repeat="patch in pc.patches" class="controls">
       <h3 class="inset-header">{{patch.name}}</h3><br>
       <span ng-if="pc.isUser"><a ui-sref="edit({id: patch._id})">Edit</a></span>
     </div>

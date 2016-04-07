@@ -14,18 +14,18 @@
 
     function handleRequest(res){
       var token = res.data ? res.data.token : null
-      console.log(res)
-    }
-
-    vm.logUser = function(){
-      console.log(authService.currentUser())
+      user = authService.currentUser()
+      if (user){
+        $state.go('profile', {id: user.id})
+      }
     }
 
     vm.login = function(){
       userService.login(vm.username,vm.password)
         .then(handleRequest,handleRequest)
+
     }
-    console.log(user);
+
     if (user){
       $state.go('profile', {id: user.id})
     }
