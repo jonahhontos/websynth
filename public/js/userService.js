@@ -36,5 +36,10 @@
     self.updatePatch = function(u_id,p_id,patch){
       return $http.patch('/users/'+u_id+'/patches/'+p_id, patch)
     }
+
+    // - delete a patch - //
+    self.deletePatch = function(u_id,p_id){
+      return $http.delete('/users/'+u_id+'/patches/'+p_id)
+    }
   }
 })()

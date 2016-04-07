@@ -27,16 +27,25 @@
       authService.logout()
     }
 
+    // - toggle creating a new patch - //
     vm.newPatch = function(){
       vm.creating = true
       vm.newPatchName = ""
     }
 
+    // - create patch in db with provided name - //
     vm.createPatch = function(){
       userService.createPatch(user.id,vm.newPatchName).then(function(result){
         vm.patches.push(result.data.patch)
       })
       vm.creating = false
+    }
+
+    // - delete a patch - //
+    vm.deletePatch = function(patch){
+      userService.deletePatch(user.id, patch._id).then(function(result){
+        vm.patches.splice(vm.patches.indexOf(),1)
+      })
     }
   }
 })()

@@ -11,7 +11,7 @@
   function editCtrl(authService, userService, $stateParams, $window, $state){
     var vm = this
 
-
+    var keysdown = 0
 
     // ---- Users and Patches ---- //
     // - store current user - //
@@ -110,18 +110,22 @@
   // -- set listeners for qwerty hancock -- //
     // - keydown event - //
     keyboard.keyDown = function(note,frequency){
-      var gain = 0.1
+      var gain = 0.5
       for (var i=0; i<vcos.length; i++){
         vcos[i].setFrequency(frequency,0)
       }
       vca.setGain(gain, vm.patch.ampAdsr.attack)
-      filter.rampCutoff(vm.patch.filter.frequency * 1.3, vm.patch.filterAdsr.attack)
+      keysdown++
+      // filter.rampCutoff(vm.patch.filter.frequency * 1.3, vm.patch.filterAdsr.attack)
       // vca.setGain(gain * vm.patch.ampAdsr.sustain, vm.patch.ampAdsr.decay + vm.patch.ampAdsr.attack)
     }
     // - keyup event - //
     keyboard.keyUp = function(note,frequency){
-      vca.setGain(0,vm.patch.ampAdsr.release)
-      filter.rampCutoff(vm.patch.filter.frequency, vm.patch.filterAdsr.release)
+      keysdown--
+      if (keysdown<=1){
+        vca.setGain(0,vm.patch.ampAdsr.release)
+      }
+      // filter.rampCutoff(vm.patch.filter.frequency, vm.patch.filterAdsr.release)
     }
   }
 
