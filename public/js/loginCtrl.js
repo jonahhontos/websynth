@@ -20,12 +20,20 @@
       }
     }
 
+    // - log a user in - //
     vm.login = function(){
       userService.login(vm.username,vm.password)
         .then(handleRequest,handleRequest)
-
     }
 
+    // - register a user - //
+    vm.register = function(){
+      userService.register(vm.username, vm.password).then(function(){
+        
+      })
+    }
+
+    // - redirect to profile if logged in - //
     if (user){
       $state.go('profile', {id: user.id})
     }

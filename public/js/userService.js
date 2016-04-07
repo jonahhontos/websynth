@@ -7,6 +7,13 @@
   function userService($http){
     var self = this
 
+    self.register = function(username,password){
+      return $http.post('/users',{
+        name: username,
+        password: password
+      })
+    }
+
     // - pass given username and password to api - //
     self.login = function(username,password){
       return $http.post('/users/login',{
