@@ -3,11 +3,11 @@
   angular.module('webSynth')
   .controller('ProfileController', profileCtrl)
 
-  profileCtrl.$inject = ['authService', 'userService', '$stateParams']
+  profileCtrl.$inject = ['authService', 'userService', '$stateParams', '$state']
 
 
 // ---- Controller Constructor ---- //
-  function profileCtrl(authService, userService, $stateParams){
+  function profileCtrl(authService, userService, $stateParams, $state){
     var vm = this
 
     // - store current user - //
@@ -25,6 +25,16 @@
     // - log out user - //
     vm.logout = function(){
       authService.logout()
+    }
+
+    // - go back to home profile - //
+    vm.backToProfile = function(){
+      $state.go('profile', {id: user.id})
+    }
+
+    // - copy other user's patch to collection - //
+    vm.copyToProfile = function(patch){
+      console.log(patch)
     }
 
     // - toggle creating a new patch - //

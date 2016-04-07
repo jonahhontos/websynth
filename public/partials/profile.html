@@ -1,9 +1,9 @@
+<div ng-if="!pc.isUser"><a href="#" ng-click="pc.backToProfile()">Back to Profile</a><br></div>
 <h1 class="inset-header">{{pc.user.name}}'s Patches</h1><br>
-<a href="#" ng-click="pc.logout()" ng-if="pc.isUser">Log Out</a><br>
+<div ng-if="pc.isUser"><a href="#" ng-click="pc.logout()">Log Out</a><br></div>
 <md-button class="md-raised" ng-click="pc.newPatch()" ng-if="pc.isUser">New Patch</md-button>  <br>
-<div ng-if="pc.creating" class="inset-header">
-
-  <md-input-container>
+<div ng-if="pc.creating" >
+  <md-input-container class="inset-header">
     <input type="text" ng-model="pc.newPatchName" placeholder="Enter Patch Name">
   </md-input-container><br>
   <md-button class="md-raised" ng-click="pc.createPatch()">Create</md-button>
@@ -16,6 +16,7 @@
         <a ui-sref="edit({id: patch._id})">Edit</a>
         <a href="#" ng-click="pc.deletePatch(patch)">Delete</a>
       </span>
+      <a href="#" ng-if="!pc.isUser" ng-click="pc.copyToProfile(patch)">Duplicate to Collection</a>
     </div>
   </div>
 </div>
