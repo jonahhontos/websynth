@@ -1,7 +1,10 @@
-<h3 class="heading center light">{{pc.user.name}}</h3>
-<h5 class="heading center light">Patches</h5>
-<div ng-repeat="patch in pc.user.patches" class="center">
-  <h5>{{patch.name}}</h5>
-  <span ng-if="pc.isUser"><a ui-sref="edit({id: patch._id})">Edit</a></span>
+<h1 class="inset-header">{{pc.user.name}}'s Patches</h1><br>
+<md-button class="md-raised" ng-click="pc.newPatch()">New Patch</md-button>
+<div layout="row" layout-align="center center">
+  <div flex="60">
+    <div ng-repeat="patch in pc.user.patches" class="controls">
+      <h3 class="inset-header">{{patch.name}}</h3><br>
+      <span ng-if="pc.isUser"><a ui-sref="edit({id: patch._id})">Edit</a></span>
+    </div>
+  </div>
 </div>
-<div class="center"><a href="#" ng-click="pc.newPatch()">New Patch</div>

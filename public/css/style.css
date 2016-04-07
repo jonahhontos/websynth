@@ -48,17 +48,12 @@ input[type=range]::-webkit-slider-thumb {
   background-size: cover;
   margin: 20px;
   padding: 0 10px 10px 0;
-  border-radius: 10px;
+  border-radius: 5px;
   text-shadow: 2px 2px 1px #333;
   box-shadow: 1px 1px 4px #222;
-  border: 2px outset #999;
+  border: 2px outset #aaa;
   font-family: monospace;
   font-size: 120%;
-}
-
-a {
-  text-decoration: none;
-  color: #069;
 }
 
 .inset-header {
