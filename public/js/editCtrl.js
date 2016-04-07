@@ -22,6 +22,7 @@
       .then(function(result){
         vm.patch = result.data.patch
         vm.syncVcos()
+        vm.syncFilter()
         startVcos()
       })
 
@@ -86,14 +87,14 @@
     }
 
     // - sync filter playback settings to patch - //
-    function syncFilter(){
+    vm.syncFilter = function(){
       filter.setType(vm.patch.filter.fType)
       filter.setCutoff(vm.patch.filter.cutoff)
       filter.setResonance(vm.patch.filter.resonance)
     }
 
     // - connect filter to amp - //
-    filter.connect(vca.gain)
+    filter.connect(vca.amp)
 
     // - connect amplifier to destination - //
     vca.connect(ctx.destination)
@@ -192,7 +193,7 @@ function VCA(ctx){
 function Filter(ctx){
   var self = this
 
-  self.filter = ctx.createBiQuadFilter()
+  self.filter = ctx.createBiquadFilter()
 
   self.setType = function(type){
     self.filter.type = type
