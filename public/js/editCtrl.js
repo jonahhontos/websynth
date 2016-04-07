@@ -109,11 +109,13 @@
         vcos[i].setFrequency(frequency,0)
       }
       vca.setGain(gain, vm.patch.ampAdsr.attack)
+      filter.rampCutoff(vm.patch.filter.frequency * 1.3, vm.patch.filterAdsr.attack)
       // vca.setGain(gain * vm.patch.ampAdsr.sustain, vm.patch.ampAdsr.decay + vm.patch.ampAdsr.attack)
     }
     // - keyup event - //
     keyboard.keyUp = function(note,frequency){
       vca.setGain(0,vm.patch.ampAdsr.release)
+      filter.rampCutoff(vm.patch.filter.frequency, vm.patch.filterAdsr.release)
     }
   }
 
@@ -201,6 +203,11 @@ function Filter(ctx){
 
   self.setCutoff = function(cutoff){
     self.filter.frequency.value = cutoff
+  }
+
+  self.rampCutoff = function(cutoff, time){
+    time = time ? time : 0
+    self.filter.frequency.setTargetAtTime(cutoff,0,time)
   }
 
   self.setResonance = function(resonance){

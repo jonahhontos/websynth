@@ -50,6 +50,7 @@
 
 
 <!-- Amplifier Envelope Settings -->
+<br><br>
   <div flex="50" class="padded">
     <h3>Amp Envelope</h3>
     Attack:<br>
@@ -62,11 +63,11 @@
     <input type="range" min="0" max="1" step="0.001" ng-model="ec.patch.ampAdsr.release">
 <!-- / Amplifier Envelope Settings -->
 
-
+<br><br>
 <!-- Filter Settings -->
     <h3>Filter</h3>
     Cutoff:<br>
-    <input type="range" min="0" max="20000" ng-model="ec.patch.filter.cutoff" ng-change="ec.syncFilter()">
+    <input type="range" min="0" max="16000" ng-model="ec.patch.filter.cutoff" ng-change="ec.syncFilter()">
     Resonance:<br>
     <input type="range" min="0" max="20" step="0.1" ng-model="ec.patch.filter.resonance" ng-change="ec.syncFilter()">
     <md-select ng-model="ec.patch.filter.fType" ng-change="ec.syncFilter()">
@@ -84,16 +85,16 @@
 
 
 <!-- Filter Envelope Settings -->
-    <h3>Filter Envelope</h3>
+    <!-- <h3>Filter Envelope</h3>
     Attack:<br>
     <input type="range" min="0" max="1" step="0.001" style="width:100%" ng-model="ec.patch.filterAdsr.attack"><br>
-    <!-- Decay:<br>
+    Decay:<br>
     <input type="range" min="0" max="1" step="0.001" ng-model="ec.patch.filterAdsr.decay"><br>
     Sustain:<br>
-    <input type="range" min="0" max="1" step="0.001" ng-model="ec.patch.filterAdsr.sustain"><br> -->
+    <input type="range" min="0" max="1" step="0.001" ng-model="ec.patch.filterAdsr.sustain"><br>
     Release:<br>
     <input type="range" min="0" max="1" step="0.001" ng-model="ec.patch.filterAdsr.release">
-  </div>
+  </div> -->
 <!-- / Filter Envelope Settings -->
 </div>
 <!-- / Row -->
