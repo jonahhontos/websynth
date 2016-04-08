@@ -54,7 +54,7 @@
     // - initialize qwerty hancock - //
     var keyboard = new QwertyHancock({
                  id: 'keyboard',
-                 width: 350,
+                 width: 300,
                  height: 75,
                  octaves: 2,
                  startNote: 'A3',
