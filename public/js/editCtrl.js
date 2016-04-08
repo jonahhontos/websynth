@@ -120,7 +120,7 @@
   // -- set listeners for qwerty hancock -- //
     // - keydown event - //
     keyboard.keyDown = function(note,frequency){
-      var gain = 0.5
+      var gain = 0.8
       for (var i=0; i<vcos.length; i++){
         vcos[i].setFrequency(frequency,0)
       }
