@@ -5,6 +5,13 @@
 
 .container {
   padding: 15px;
+  font-family: monospace;
+  text-shadow: 2px 2px 1px #333;
+  background-image: url('../images/compressors.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  min-height: 100%;
 }
 
 .vco {
@@ -15,11 +22,11 @@ body {
   text-align: center;
   font-family: monospace;
   text-shadow: 2px 2px 1px #333;
-  background-image: url('../images/compressors.jpg');
+  /*background-image: url('../images/compressors.jpg');
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
-  min-height: 100%;
+  min-height: 100%;*/
 }
 
 input[type="range"]{
