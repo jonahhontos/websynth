@@ -5,9 +5,10 @@ var express = require('express'),
     mongoose = require('mongoose'),
     userRoutes = require('./routes/users.js')
 
+var PORT = process.env.PORT || 3000
 
 // ---- DB Connection ---- //
-mongoose.connect('mongodb://localhost/websynth', function(){
+mongoose.connect('mongodb://websynth:websynth@ds021010.mlab.com:21010/websynth', function(){
   console.log('mongodb connected')
 })
 
