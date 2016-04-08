@@ -65,6 +65,7 @@
                    activeColour: '#069'
               })
     }
+    syncKeyboard()
 
     // - initialize oscillators - //
     var vcos = [new VCO(ctx),new VCO(ctx),new VCO(ctx)]
@@ -80,13 +81,13 @@
         vcos[i].setType(vm.patch.vcos[i].oType)
         vcos[i].setDetune(vm.patch.vcos[i].detune)
         vcos[i].setGain(vm.patch.vcos[i].gain)
-        syncKeyboard()
+        // syncKeyboard()
       }
     }
 
     // - sync keyboard to filter settings - //
     vm.syncAdsr = function(){
-      syncKeyboard()
+      // syncKeyboard()
     }
 
     // - initialize amplifier - //
@@ -106,7 +107,7 @@
       filter.setType(vm.patch.filter.fType)
       filter.setCutoff(vm.patch.filter.cutoff)
       filter.setResonance(vm.patch.filter.resonance)
-      syncKeyboard()
+      // syncKeyboard()
     }
 
     // - connect filter to amp - //
