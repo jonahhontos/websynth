@@ -52,16 +52,19 @@
     var ctx = new $window.AudioContext()
 
     // - initialize qwerty hancock - //
-    var keyboard = new QwertyHancock({
-                 id: 'keyboard',
-                 width: 300,
-                 height: 75,
-                 octaves: 2,
-                 startNote: 'A3',
-                 whiteNotesColour: 'white',
-                 blackNotesColour: 'black',
-                 activeColour: '#069'
-            })
+    var keyboard
+    function syncKeyboard(){
+      keyboard = new QwertyHancock({
+                   id: 'keyboard',
+                   width: 300,
+                   height: 75,
+                   octaves: 2,
+                   startNote: 'A3',
+                   whiteNotesColour: 'white',
+                   blackNotesColour: 'black',
+                   activeColour: '#069'
+              })
+    }
 
     // - initialize oscillators - //
     var vcos = [new VCO(ctx),new VCO(ctx),new VCO(ctx)]
@@ -77,7 +80,13 @@
         vcos[i].setType(vm.patch.vcos[i].oType)
         vcos[i].setDetune(vm.patch.vcos[i].detune)
         vcos[i].setGain(vm.patch.vcos[i].gain)
+        syncKeyboard()
       }
+    }
+
+    // - sync keyboard to filter settings - //
+    vm.syncAdsr = function(){
+      syncKeyboard()
     }
 
     // - initialize amplifier - //
@@ -97,6 +106,7 @@
       filter.setType(vm.patch.filter.fType)
       filter.setCutoff(vm.patch.filter.cutoff)
       filter.setResonance(vm.patch.filter.resonance)
+      syncKeyboard()
     }
 
     // - connect filter to amp - //
