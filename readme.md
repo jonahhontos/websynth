@@ -1,6 +1,6 @@
 # Web Synth
 
-
+http://ga-websynth.herokuapp.com/#/
 
 ### Description
 
@@ -31,4 +31,16 @@ Edit View
 - User
   - name
   - patches [patch refs]
+- Patch
+  - name
+  - VCOs [3]
+    - Type
+    - Detune
+    - Gain
+  - Amp Envelope
+    - Attack
+    - Release
+  - Filter
+    - Cutoff
+    - Resonance
 
