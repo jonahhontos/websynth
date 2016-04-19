@@ -1,17 +1,48 @@
 // ---- Module Setup ---- //
 (function(){
-  angular.module('webSynth')
-  .controller('EditController', editCtrl)
+  angular
+    .module('webSynth')
+    .controller('EditController', editCtrl)
 
-  editCtrl.$inject = ['authService', 'userService', '$stateParams', '$window', '$state']
+  editCtrl.$inject = ['authService', 'userService', '$stateParams', '$window', '$state', '$scope', 'Devices']
 
 
 
 // ---- Controller Constructor ---- //
-  function editCtrl(authService, userService, $stateParams, $window, $state){
+  function editCtrl(authService, userService, $stateParams, $window, $state, $scope, devices){
     var vm = this
 
     var keysdown = 0
+
+    // ---- Set Up MIDI Connections ---- //
+    vm.devices = []
+
+    devices
+      .connect()
+      .then(function(access) {
+          if('function' === typeof access.inputs) {
+              // deprecated
+              vm.devices = access.inputs()
+              console.error('Update your Chrome version!')
+          } else {
+              if(access.inputs && access.inputs.size > 0) {
+                  var inputs = access.inputs.values(),
+                      input = null
+
+                  // iterate through the devices
+                  for (input = inputs.next(); input && !input.done; input = inputs.next()) {
+                      vm.devices.push(input.value)
+                  }
+              } else {
+                  console.error('No devices detected!')
+              }
+          }
+          console.log(vm.devices)
+      })
+      .catch(function(e) {
+          console.error(e)
+      })
+
 
     // ---- Users and Patches ---- //
     // - store current user - //
