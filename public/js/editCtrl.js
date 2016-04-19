@@ -14,35 +14,6 @@
 
     var keysdown = 0
 
-    // ---- Set Up MIDI Connections ---- //
-    vm.devices = []
-
-    devices
-      .connect()
-      .then(function(access) {
-          if('function' === typeof access.inputs) {
-              // deprecated
-              vm.devices = access.inputs()
-              console.error('Update your Chrome version!')
-          } else {
-              if(access.inputs && access.inputs.size > 0) {
-                  var inputs = access.inputs.values(),
-                      input = null
-
-                  // iterate through the devices
-                  for (input = inputs.next(); input && !input.done; input = inputs.next()) {
-                      vm.devices.push(input.value)
-                  }
-              } else {
-                  console.error('No devices detected!')
-              }
-          }
-          console.log(vm.devices)
-      })
-      .catch(function(e) {
-          console.error(e)
-      })
-
 
     // ---- Users and Patches ---- //
     // - store current user - //
@@ -97,6 +68,34 @@
               })
     }
     syncKeyboard()
+
+    // - set up MIDI connections - //
+    vm.devices = []
+    devices
+      .connect()
+      .then(function(access) {
+          if('function' === typeof access.inputs) {
+              // deprecated
+              vm.devices = access.inputs()
+              console.error('Update your Chrome version!')
+          } else {
+              if(access.inputs && access.inputs.size > 0) {
+                  var inputs = access.inputs.values(),
+                      input = null
+
+                  // iterate through the devices
+                  for (input = inputs.next(); input && !input.done; input = inputs.next()) {
+                      vm.devices.push(input.value)
+                  }
+              } else {
+                  console.error('No devices detected!')
+              }
+          }
+          console.log(vm.devices)
+      })
+      .catch(function(e) {
+          console.error(e)
+      })
 
     // - initialize oscillators - //
     var vcos = [new VCO(ctx),new VCO(ctx),new VCO(ctx)]

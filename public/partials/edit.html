@@ -15,6 +15,10 @@
     <md-button class="md-raised" ng-click="ec.goBack()">Back</md-button>
   </div>
 </div>
+
+<select ng-model="ec.activeDevice" class="form-control" ng-options="device.manufacturer + ' ' + device.name for device in ec.devices">
+    <option value="" disabled>Choose a MIDI device...</option>
+</select>
 <!-- / Header -->
 
 <div layout="row" class="controls">
