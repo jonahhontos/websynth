@@ -42,5 +42,5 @@ Edit View
     - Release
   - Filter
     - Cutoff
-    - Resonance
+    - Resonance 
 
