@@ -1,17 +1,19 @@
 // ---- Module Setup ---- //
 (function(){
-  angular.module('webSynth')
-  .controller('EditController', editCtrl)
+  angular
+    .module('webSynth')
+    .controller('EditController', editCtrl)
 
-  editCtrl.$inject = ['authService', 'userService', '$stateParams', '$window', '$state']
+  editCtrl.$inject = ['authService', 'userService', '$stateParams', '$window', '$state', '$scope', 'Devices']
 
 
 
 // ---- Controller Constructor ---- //
-  function editCtrl(authService, userService, $stateParams, $window, $state){
+  function editCtrl(authService, userService, $stateParams, $window, $state, $scope, devices){
     var vm = this
 
     var keysdown = 0
+
 
     // ---- Users and Patches ---- //
     // - store current user - //
@@ -67,6 +69,57 @@
     }
     syncKeyboard()
 
+    // - set up MIDI connections - //
+    vm.devices = []
+    devices
+      .connect()
+      .then(function(access) {
+          if('function' === typeof access.inputs) {
+              // deprecated
+              vm.devices = access.inputs()
+              console.error('Update your Chrome version!')
+          } else {
+              if(access.inputs && access.inputs.size > 0) {
+                  var inputs = access.inputs.values(),
+                      input = null
+
+                  // iterate through the devices
+                  for (input = inputs.next(); input && !input.done; input = inputs.next()) {
+                      vm.devices.push(input.value)
+                  }
+              } else {
+                  console.error('No devices detected!')
+              }
+          }
+          console.log(vm.devices)
+      })
+      .catch(function(e) {
+          console.error(e)
+      })
+
+    // - watch and connect active midi device - //
+    $scope.$watch('vm.activeDevice', plug)
+
+    function onmidimessage(msg){
+      switch (msg.data[0]){
+        case 144:
+          playNote(msg.data[1], 440 * Math.pow(2, (msg.data[1] - 69) / 12))
+          break
+        case 128:
+          stopNote(msg.data[1])
+          break
+      }
+    }
+
+    function plug(device){
+      if (device){
+        vm.device = device
+        vm.device.onmidimessage = onmidimessage
+      }
+    }
+
+
+
     // - initialize oscillators - //
     var vcos = [new VCO(ctx),new VCO(ctx),new VCO(ctx)]
     function startVcos(){
@@ -116,11 +169,8 @@
     // - connect amplifier to destination - //
     vca.connect(ctx.destination)
 
-
-
-  // -- set listeners for qwerty hancock -- //
-    // - keydown event - //
-    keyboard.keyDown = function(note,frequency){
+    // - note on/off functions - //
+    function playNote(note, frequency){
       var gain = 0.8
       for (var i=0; i<vcos.length; i++){
         vcos[i].setFrequency(frequency,0)
@@ -130,14 +180,22 @@
       // filter.rampCutoff(vm.patch.filter.frequency * 1.3, vm.patch.filterAdsr.attack)
       // vca.setGain(gain * vm.patch.ampAdsr.sustain, vm.patch.ampAdsr.decay + vm.patch.ampAdsr.attack)
     }
-    // - keyup event - //
-    keyboard.keyUp = function(note,frequency){
+
+    function stopNote(note, frequency){
       keysdown--
       if (keysdown<=1){
         vca.setGain(0,vm.patch.ampAdsr.release)
       }
       // filter.rampCutoff(vm.patch.filter.frequency, vm.patch.filterAdsr.release)
     }
+
+
+
+  // - set listeners for qwerty hancock - //
+    // - keydown event - //
+    keyboard.keyDown = playNote
+    // - keyup event - //
+    keyboard.keyUp = stopNote
   }
 
 
