@@ -12,7 +12,7 @@
   function editCtrl(authService, userService, $stateParams, $window, $state, $scope, devices){
     var vm = this
 
-    var keysdown = 0
+    var activeNotes = []
 
 
     // ---- Users and Patches ---- //
@@ -99,18 +99,24 @@
 
     // - watch and connect active midi device - //
     $scope.$watch('activeDevice', function(device){
-      console.log(device);
-      if (device){
-        vm.device = device
-        vm.device.onmidimessage = onmidimessage
-      }
-    }
-)
+          console.log(device);
+          if (device){
+            vm.device = device
+            vm.device.onmidimessage = onmidimessage
+          }
+        }
+    )
 
+    function frequencyOf(note){
+      return 440 * Math.pow(2, (note - 69) / 12)
+    }
+
+    // - handle midi messages - //
     function onmidimessage(msg){
+      // console.log(msg);
       switch (msg.data[0]){
         case 144:
-          playNote(msg.data[1], 440 * Math.pow(2, (msg.data[1] - 69) / 12))
+          playNote(msg.data[1], frequencyOf(msg.data[1]))
           break
         case 128:
           stopNote(msg.data[1])
@@ -173,19 +179,28 @@
     // - note on/off functions - //
     function playNote(note, frequency){
       var gain = 0.8
+      activeNotes.push(note)
       for (var i=0; i<vcos.length; i++){
         vcos[i].setFrequency(frequency,0)
       }
       vca.setGain(gain, vm.patch.ampAdsr.attack)
-      keysdown++
+
       // filter.rampCutoff(vm.patch.filter.frequency * 1.3, vm.patch.filterAdsr.attack)
       // vca.setGain(gain * vm.patch.ampAdsr.sustain, vm.patch.ampAdsr.decay + vm.patch.ampAdsr.attack)
     }
 
     function stopNote(note, frequency){
-      keysdown--
-      if (keysdown<=1){
+      var position = activeNotes.indexOf(note);
+      if (position !== -1) {
+          activeNotes.splice(position, 1);
+      }
+
+      if (activeNotes.length === 0) {
         vca.setGain(0,vm.patch.ampAdsr.release)
+      } else {
+          for (var i=0; i<vcos.length; i++){
+            vcos[i].setFrequency(frequencyOf(activeNotes[activeNotes.length - 1]),0)
+          }
       }
       // filter.rampCutoff(vm.patch.filter.frequency, vm.patch.filterAdsr.release)
     }
