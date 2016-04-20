@@ -98,7 +98,14 @@
       })
 
     // - watch and connect active midi device - //
-    $scope.$watch('vm.activeDevice', plug)
+    $scope.$watch('activeDevice', function(device){
+      console.log(device);
+      if (device){
+        vm.device = device
+        vm.device.onmidimessage = onmidimessage
+      }
+    }
+)
 
     function onmidimessage(msg){
       switch (msg.data[0]){
@@ -111,12 +118,6 @@
       }
     }
 
-    function plug(device){
-      if (device){
-        vm.device = device
-        vm.device.onmidimessage = onmidimessage
-      }
-    }
 
 
 

@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<select ng-model="ec.activeDevice" class="form-control" ng-options="device.manufacturer + ' ' + device.name for device in ec.devices">
+<select ng-model="activeDevice" class="form-control" ng-options="device.manufacturer + ' ' + device.name for device in ec.devices">
     <option value="" disabled>Choose a MIDI device...</option>
 </select>
 <!-- / Header -->
