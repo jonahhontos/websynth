@@ -22,6 +22,11 @@
       })
     }
 
+    // - get public patches data - //
+    self.getPublicPatches = function(){
+      return $http.get('/users/public')
+    }
+
     // - get data for a user - //
     self.getUser = function(id){
       return $http.get('/users/'+id)

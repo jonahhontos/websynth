@@ -32,6 +32,15 @@
       $state.go('profile', {id: user.id})
     }
 
+    // - navigate to public patches - //
+    vm.publicPatches = function(){
+      userService.getPublicPatches()
+        .then(function(result){
+          console.log(result);
+          $state.go('profile', {id: result.data.user._id})
+        })
+    }
+
     // - copy other user's patch to collection - //
     vm.copyToProfile = function(patch){
       userService.copyPatch(user.id,patch).then(function(result){

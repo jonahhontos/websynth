@@ -14,6 +14,9 @@ userRouter.post('/login', userCtrl.login)
 // - get patch data - //
 userRouter.get('/:u_id/patches/:p_id', userCtrl.showPatch)
 
+// - get public patches - //
+userRouter.get('/public', userCtrl.publicPatches)
+
 // - show user - //
 userRouter.get('/:id', userCtrl.show)
 

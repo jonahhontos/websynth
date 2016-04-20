@@ -31,6 +31,13 @@ module.exports = {
           res.json({success:true, user:user})
         })
   },
+  // - return public patches - //
+  publicPatches: function(req,res){
+    User.findOne({name: 'public_patches'}, function(err, user){
+      if (err) res.json({success: false, error: err})
+      res.json({success:true, user:user})
+    })
+  },
   // - log an existing user in - //
   login: function(req,res){
     User.findOne({name: req.body.name}, function(err,user){
