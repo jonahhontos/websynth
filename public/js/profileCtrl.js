@@ -22,6 +22,12 @@
         vm.patches = vm.user.patches
       })
 
+    // - lookup and store public patches id - //
+    userService.getPublicPatches()
+      .then(function(result){
+        vm.publicId = result.data.user._id
+      })
+
     // - log out user - //
     vm.logout = function(){
       authService.logout()
@@ -34,17 +40,21 @@
 
     // - navigate to public patches - //
     vm.publicPatches = function(){
-      userService.getPublicPatches()
-        .then(function(result){
-          console.log(result);
-          $state.go('profile', {id: result.data.user._id})
-        })
+      $state.go('profile', {id: vm.publicId})
     }
 
     // - copy other user's patch to collection - //
     vm.copyToProfile = function(patch){
       userService.copyPatch(user.id,patch).then(function(result){
-        $state.go('profile',{id:user.id})
+        $state.go('profile',{id: user.id})
+      })
+    }
+
+    // - share a patch to public patches - //
+    vm.sharePatch = function(patch){
+      console.log(vm.publicId);
+      userService.copyPatch(vm.publicId,patch).then(function(result){
+        $state.go('profile',{id: vm.publicId})
       })
     }
 

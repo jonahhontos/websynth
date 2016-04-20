@@ -1,7 +1,7 @@
-<div ng-if="!pc.isUser"><a href="#" ng-click="pc.backToProfile()">Back to Profile</a><br></div>
 <h1 class="inset-header" ng-if="pc.user.name != 'public_patches'">{{pc.user.name}}'s Patches</h1>
 <h1 class="inset-header" ng-if="pc.user.name == 'public_patches'">Public Patches</h1>
 <br>
+<div ng-if="!pc.isUser"><a href="#" ng-click="pc.backToProfile()">Back to Profile</a><br></div>
 <div ng-if="pc.isUser"><a href="#" ng-click="pc.logout()">Log Out</a><br></div>
 
 <md-button class="md-raised" ng-click="pc.newPatch()" ng-if="pc.isUser">New Patch</md-button><br>
@@ -17,11 +17,12 @@
 <div layout="row" layout-align="center center">
   <div flex="60">
     <div ng-repeat="patch in pc.patches" class="controls">
-      <a ui-sref="edit({id: patch._id})"><h3 class="inset-header">{{patch.name}}</h3><br></a>
+      <a ui-sref="edit({id: patch._id})" ng-if="pc.isUser"><h3 class="inset-header">{{patch.name}}</h3><br></a>
+      <h3 class="inset-header" ng-if="!pc.isUser">{{patch.name}}</h3><br>
       <span ng-if="pc.isUser">
-        <a href="#" ng-click="pc.share(patch)">Share to Public Patches</a>
-        <a ui-sref="edit({id: patch._id})">Edit</a>
-        <a href="#" ng-click="pc.deletePatch(patch)">Delete</a>
+        <a ng-click="pc.sharePatch(patch)">Share to Public Patches</a>
+        <a ui-sref="edit({id: patch._id})" style="text-decoration:none">Edit</a>
+        <a ng-click="pc.deletePatch(patch)">Delete</a>
       </span>
       <a ng-if="!pc.isUser" ng-click="pc.copyToProfile(patch)">Duplicate to Collection</a>
     </div>
